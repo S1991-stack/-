@@ -6,7 +6,7 @@ echo "  Building SALAH Neon Player Android APK"
 echo "===================================================="
 
 npm install
-npm install @capacitor/core @capacitor/cli @capacitor/android
+npm install --no-save @capacitor/core @capacitor/cli @capacitor/android
 npm run build
 
 if [ ! -d "android" ]; then
@@ -17,7 +17,7 @@ npx cap sync android
 
 cd android
 chmod +x gradlew
-./gradlew assembleDebug
+./gradlew assembleDebug --no-daemon
 
 echo ""
 echo "Done! APK output:"
