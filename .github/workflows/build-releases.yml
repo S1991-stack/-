@@ -1,0 +1,54 @@
+name: Build SALAH Neon Player (EXE & APK)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build-windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run build
+      # Electron 22.3.27 is the last official LTS branch supporting Windows 7 / 8 / 8.1 and also runs on Windows 10 / 11
+      - run: npm install -D electron@22.3.27 electron-builder
+      - run: npx electron-builder --config electron/electron-builder.yml --win
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SALAH-Neon-Player-Windows-Setup-EXE
+          path: release/*.exe
+
+  build-android-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: android-actions/setup-android@v3
+      - run: npm install
+      - run: npm install @capacitor/core @capacitor/cli @capacitor/android
+      - run: npm run build
+      - run: |
+          if [ ! -d "android" ]; then
+            npx cap add android
+          fi
+          npx cap sync android
+          cp public/pwa-512x512.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png || true
+      - run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SALAH-Neon-Player-Android-APK
+          path: android/app/build/outputs/apk/debug/*.apk

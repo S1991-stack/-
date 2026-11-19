@@ -1,0 +1,6 @@
+{
+  "name": "SALAH Neon Player",
+  "description": "مشغل الصوت المتطور - مشغل صوت احترافي متعدد المنصات (Android و Windows) بتصميم نيون زجاجي ومعادل صوتي حقيقي والعمل دون إنترنت.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

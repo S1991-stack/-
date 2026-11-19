@@ -1,0 +1,47 @@
+appId: com.salah.neonplayer
+productName: SALAH Neon Player
+copyright: Copyright © 2026 SALAH Neon Player
+directories:
+  output: release
+files:
+  - dist/**/*
+  - electron/**/*
+  - public/pwa-512x512.png
+fileAssociations:
+  - ext: mp3
+    name: MP3 Audio
+    role: Viewer
+  - ext: wav
+    name: WAV Audio
+    role: Viewer
+  - ext: flac
+    name: FLAC Audio
+    role: Viewer
+  - ext: aac
+    name: AAC Audio
+    role: Viewer
+  - ext: m4a
+    name: M4A Audio
+    role: Viewer
+  - ext: ogg
+    name: OGG Audio
+    role: Viewer
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+  icon: public/pwa-512x512.png
+  artifactName: SALAH-Neon-Player-Setup-${version}.${ext}
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: SALAH Neon Player
+  uninstallDisplayName: SALAH Neon Player
+  deleteAppDataOnUninstall: false
+  runAfterFinish: true
